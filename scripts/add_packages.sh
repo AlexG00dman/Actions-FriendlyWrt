@@ -30,4 +30,7 @@ function init_theme() {
 }
 EOL
 sed -i -e '/boardname=/r /tmp/appendtext.txt' friendlywrt/target/linux/rockchip/armv8/base-files/root/setup.sh
+echo "src-git amneziawg https://github.com/amnezia-vpn/amneziawg-openwrt.git" >> feeds.conf.default
+./scripts/feeds update -a
+./scripts/feeds install -a
 # }}
