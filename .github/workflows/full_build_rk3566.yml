@@ -107,9 +107,19 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-    - name: Set custom OpenWrt mirror
+    - name: Fix missing usb-modeswitch source
       run: |
-        echo "CONFIG_SRC_MIRROR_URL=\"https://mirrors.ustc.edu.cn/openwrt\"" >> project/friendlywrt/.config
+        cd project/friendlywrt
+        FILE="dl/usb-modeswitch-2.6.0.tar.bz2"
+        EXPECTED_MD5="be73dcc84025794081a1d4d4e5a75e4c"
+        if [ ! -f "$FILE" ]; then
+        echo "File $FILE missing, downloading from mirror..."
+        wget -O "$FILE" http://www.tinycorelinux.net/15.x/x86_64/tcz/src/usb-modeswitch/usb-modeswitch-2.6.0.tar.bz2
+        fi
+        echo "${EXPECTED_MD5} ${FILE}" | md5sum -c - || { echo "MD5 mismatch!"; exit 1; }
+        echo "usb-modeswitch source ready."
+
+       
 
     - name: Compile friendlyWrt
       id: compile
