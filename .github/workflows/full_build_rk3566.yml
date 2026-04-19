@@ -36,7 +36,7 @@ jobs:
     strategy:
       matrix:
         VERSION: ['24.10']
-        SET: [non-docker]
+        SET: [docker, non-docker]
 
     steps:
     - name: Checkout
@@ -232,8 +232,10 @@ jobs:
         cd project
         case ${{ matrix.CPU }} in
         rk3566)       
+          echo "CPU rk3566 detected" 
+          ;;
         *)
-          echo "unknow cpu"
+          echo "unknown cpu"
           exit 1
           ;;
         esac
