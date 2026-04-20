@@ -35,7 +35,7 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
     strategy:
       matrix:
-        VERSION: ['24.10']
+        VERSION: ['23.05']
         ARCH: [aarch64_cortex-a53] # для rk3566
 
     steps:
