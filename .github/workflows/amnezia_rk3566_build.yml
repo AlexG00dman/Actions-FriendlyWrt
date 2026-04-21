@@ -66,9 +66,12 @@ jobs:
       run: |
         mkdir project
         cd project
+
+
+
         
         repo init --depth=1 -u https://github.com/friendlyarm/friendlywrt_manifests -b master-v${{ matrix.VERSION }} \
-                -m rk3399.xml --repo-url=https://github.com/friendlyarm/repo  --no-clone-bundle               
+                -m rk3566.xml --repo-url=https://github.com/friendlyarm/repo  --no-clone-bundle               
         repo sync -c kernel --no-clone-bundle
         repo sync -c friendlywrt --no-clone-bundle
         repo sync -c configs --no-clone-bundle
@@ -82,7 +85,7 @@ jobs:
       run: |
         cd project
         cat > .current_config.mk <<EOL
-        . device/friendlyelec/rk3399/base.mk
+        . device/friendlyelec/rk3566/base.mk
         TARGET_IMAGE_DIRNAME=friendlywrt23.05
         TARGET_FRIENDLYWRT_CONFIG=rockchip
         EOL
