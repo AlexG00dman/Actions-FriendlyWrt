@@ -88,12 +88,13 @@ jobs:
     - name: Apply customizations
       run: |
         cd project
-        echo "# CONFIG_LINUX_6_6 is not set" >> .config
-        echo "CONFIG_LINUX_6_1=y" >> .config
         source $GITHUB_WORKSPACE/scripts/add_packages.sh
         source $GITHUB_WORKSPACE/scripts/custom_config.sh
         echo "CONFIG_PACKAGE_kmod-amneziawg=m" >> .config
         make defconfig
+        
+        echo "CONFIG_LINUX_VERSION=\"6.1.141\"" >> .config
+        echo "CONFIG_LINUX_VERMAGIC=\"aarch64\"" >> .config
         
     - name: Download package
       run: |
